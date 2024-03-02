@@ -1,10 +1,36 @@
 <template>
+  <div class="black-bg" v-if="모달창열렸니 == true">
+    <div class="white-bg">
+      <h4>상세페이지임</h4>
+      <p>상세페이지 내용임</p>
+      <button @click="모달창열렸니 = false">닫기</button>
+    </div>
+  </div>
+
   <div class="menu">
     <a v-for="작명 in 메뉴들" :key="작명">{{ 작명 }}</a>
   </div>
-  <div v-for="(item, index) in products" :key="index">
-    <h4 class="blue" :style="color">{{ item.product }} 원룸</h4>
-    <p>{{ item.price }} 만원</p>
+
+  <div>
+    <img src="./assets/room0.jpg" class="room-img" />
+    <h4 @click="모달창열렸니 = true">{{ products[0] }}</h4>
+    <p>50만원</p>
+    <button @click="increase(0)">허위매물신고</button>
+    <span>신고수 : {{ 신고수[0] }}</span>
+  </div>
+  <div>
+    <img src="./assets/room1.jpg" class="room-img" />
+    <h4>{{ products[1] }}</h4>
+    <p>60만원</p>
+    <button @click="increase(1)">허위매물신고</button>
+    <span>신고수 : {{ 신고수[1] }}</span>
+  </div>
+  <div>
+    <img src="./assets/room2.jpg" class="room-img" />
+    <h4>{{ products[2] }}</h4>
+    <p>70만원</p>
+    <button @click="increase(2)">허위매물신고</button>
+    <span>신고수 : {{ 신고수[2] }}</span>
   </div>
 </template>
 
@@ -14,19 +40,45 @@ export default {
   components: {},
   data() {
     return {
+      모달창열렸니: false,
+      신고수: [0, 0, 0],
       스타일: "color:blue",
       메뉴들: ["Home", "Shop", "About"],
-      products: [
-        { product: "역삼동원룸", price: 50 },
-        { product: "천호동원룸", price: 60 },
-        { product: "마포구원룸", price: 70 },
-      ],
+      products: ["역삼동원룸", "천호동원룸", "마포구원룸"],
     };
+  },
+  methods: {
+    increase(num) {
+      this.신고수[num]++;
+    },
   },
 };
 </script>
 
 <style>
+body {
+  margin: 0;
+}
+div {
+  box-sizing: border-box;
+}
+.black-bg {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  padding: 20px;
+}
+.white-bg {
+  width: 100%;
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+}
+.room-img {
+  width: 100%;
+  margin-top: 40px;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
